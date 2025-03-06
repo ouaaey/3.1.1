@@ -1,24 +1,28 @@
 package example.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users") //реализовала JBV_API
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
     @NotEmpty(message = "Name cannot be empty")
     private String name;
 
+    @Column(name = "email")
     @NotEmpty(message = "Email cannot be empty")
+    @Email(message = "Email should be valid")
     private String email;
 
-    @PositiveOrZero(message = "Age must be positive or zero")
-    private int age;
+    @Column(name = "age")
+    @NotNull(message = "Age cannot be null")
+    @Min(value = 0, message = "Age should not be less than 0")
+    private Integer age;
 
     // Геттеры и сеттеры
     public Long getId() {
@@ -45,11 +49,11 @@ public class User {
         this.email = email;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 }
