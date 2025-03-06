@@ -32,7 +32,6 @@ public class User {
     @Min(value = 0, message = "Age should not be less than 0")
     private Integer age;
 
-    // Геттеры и сеттеры
     public Long getId() {
         return id;
     }
