@@ -1,7 +1,7 @@
 package example.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -17,14 +17,14 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-@Configuration
-@PropertySource("classpath:db.properties")
+@PropertySource("classpath:resources/db.properties")
 @EnableTransactionManagement
-@ComponentScan("example")
+@Configuration
 public class AppConfig {
 
     private final Environment env;
 
+    @Autowired
     public AppConfig(Environment env) {
         this.env = env;
     }
@@ -63,6 +63,9 @@ public class AppConfig {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
         properties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
+        properties.setProperty("hibernate.connection.charSet", "UTF-8");
+        properties.setProperty("hibernate.connection.useUnicode", "true");
         return properties;
     }
 }

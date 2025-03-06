@@ -2,13 +2,12 @@ package example.controller;
 
 import example.model.User;
 import example.service.UserService;
+import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/users")
@@ -16,6 +15,7 @@ public class UserController {
 
     private final UserService userService;
 
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -23,17 +23,20 @@ public class UserController {
     @GetMapping
     public String showAllUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
-        return "index";
+        return "users";
     }
 
     @GetMapping("/new")
     public String addUserForm(Model model) {
         model.addAttribute("user", new User());
-        return "form";
+        return "add-user";
     }
 
     @PostMapping
-    public String saveUser(@ModelAttribute("user") User user) {
+    public String saveUser(@ModelAttribute("user") @Valid User user, BindingResult result) {
+        if (result.hasErrors()) {
+            return "add-user";
+        }
         userService.createUser(user);
         return "redirect:/users";
     }
@@ -41,11 +44,14 @@ public class UserController {
     @GetMapping("/edit")
     public String editUserForm(@RequestParam("id") long id, Model model) {
         model.addAttribute("user", userService.getUser(id));
-        return "edit";
+        return "edit-user";
     }
 
     @PostMapping("/edit")
-    public String updateUser(@ModelAttribute("user") User user) {
+    public String updateUser(@RequestParam("id") long id, @ModelAttribute("user") @Valid User user, BindingResult result) {
+        if (result.hasErrors()) {
+            return "edit-user";
+        }
         userService.updateUser(user);
         return "redirect:/users";
     }

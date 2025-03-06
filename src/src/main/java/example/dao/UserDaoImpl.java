@@ -8,7 +8,8 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class UserDaoImpl implements example.dao.UserDao {
+public class UserDaoImpl implements UserDao {
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -20,13 +21,11 @@ public class UserDaoImpl implements example.dao.UserDao {
     @Override
     public void createUser(User user) {
         entityManager.persist(user);
-        entityManager.flush();
     }
 
     @Override
     public void updateUser(User user) {
         entityManager.merge(user);
-        entityManager.flush();
     }
 
     @Override
