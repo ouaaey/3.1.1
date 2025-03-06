@@ -1,16 +1,8 @@
 package example.model;
 
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.PositiveOrZero;
-import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -24,6 +16,9 @@ public class User {
 
     @NotEmpty(message = "Email cannot be empty")
     private String email;
+
+    @PositiveOrZero(message = "Age must be positive or zero")
+    private int age;
 
     // Геттеры и сеттеры
     public Long getId() {
@@ -48,5 +43,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }
