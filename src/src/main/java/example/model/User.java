@@ -15,34 +15,17 @@ import java.util.Objects;
 @Entity
 @Table(name = "users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
     @NotEmpty(message = "Name cannot be empty")
     private String name;
 
-    @Column(name = "email")
     @NotEmpty(message = "Email cannot be empty")
-    @Email(message = "Email should be valid")
     private String email;
 
-    @Column(name = "age")
-    @PositiveOrZero(message = "Age should be positive or zero")
-    private int age;
-
-    public User() {
-    }
-
-    public User(String name, String email, int age) {
-        this.name = name;
-        this.email = email;
-        this.age = age;
-    }
-
-
+    // Геттеры и сеттеры
     public Long getId() {
         return id;
     }
@@ -65,36 +48,5 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id.equals(user.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", age=" + age +
-                '}';
     }
 }

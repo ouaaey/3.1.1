@@ -10,10 +10,6 @@
     <packaging>war</packaging>
 
     <properties>
-        <spring.version>5.3.14</spring.version>
-        <hibernate.version>5.6.3.Final</hibernate.version>
-        <mysql.version>8.0.33</mysql.version>
-        <thymeleaf.version>3.0.14.RELEASE</thymeleaf.version>
         <java.version>17</java.version>
     </properties>
 
@@ -47,50 +43,25 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
         </dependency>
 
-        <!-- Hibernate -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
-
-        <!-- Thymeleaf -->
-        <dependency>
-            <groupId>org.thymeleaf</groupId>
-            <artifactId>thymeleaf-spring5</artifactId>
-            <version>${thymeleaf.version}</version>
-        </dependency>
-
-        <!-- Servlet API -->
+        <!-- Другие зависимости -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
-
-        <!-- Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.7.36</version>
         </dependency>
-
-        <!-- Connection Pooling -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-dbcp2</artifactId>
-            <version>2.12.0</version>
         </dependency>
-
-        <!-- Hibernate Validator -->
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>6.2.0.Final</version>
         </dependency>
     </dependencies>
 
@@ -107,21 +78,21 @@
                 </configuration>
             </plugin>
 
-
             <!-- Maven WAR Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.1</version>
                 <configuration>
-                    <warSourceDirectory>src/main/webapp</warSourceDirectory>
-                    <warName>spring_mvc</warName>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
 
+            <!-- Spring Boot Maven Plugin -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
         </plugins>
-        <finalName>Spring_MVC</finalName>
     </build>
-
 </project>
