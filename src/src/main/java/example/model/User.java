@@ -12,7 +12,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "users") //реализовала JBV_API
+@Table(name = "users")
+//реализовала JBV_API
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
