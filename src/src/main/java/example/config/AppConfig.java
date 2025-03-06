@@ -20,6 +20,7 @@ import java.util.Properties;
 @PropertySource("classpath:resources/db.properties")
 @EnableTransactionManagement
 @Configuration
+
 public class AppConfig {
 
     private final Environment env;
